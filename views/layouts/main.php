@@ -27,23 +27,23 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Testna YII2 aplikacija',
+        'brandLabel' => Yii::t('app', 'YII2 test application'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
 	$navItems=[
-		['label' => 'Home', 'url' => ['/site/index']],
-		['label' => 'Say', 'url' => ['/site/say']],
-		['label' => 'Status', 'url' => ['/status/index']],
-		['label' => 'About', 'url' => ['/site/about']],
-		['label' => 'Contact', 'url' => ['/site/contact']]
+		['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
+		['label' => Yii::t('app', 'Say'), 'url' => ['/site/say']],
+		['label' => Yii::t('app', 'Status'), 'url' => ['/status/index']],
+		['label' => Yii::t('app', 'About'), 'url' => ['/site/about']],
+		['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact']]
 	  ];
 	  if (Yii::$app->user->isGuest) {
-		array_push($navItems,['label' => 'Sign In', 'url' => ['/user/login']],['label' => 'Sign Up', 'url' => ['/user/register']]);
+		array_push($navItems,['label' => Yii::t('user', 'Sign In'), 'url' => ['/user/login']],['label' => Yii::t('user', 'Sign Up'), 'url' => ['/user/register']]);
 	  } else {
-		array_push($navItems,['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+		array_push($navItems,['label' => Yii::t('user', 'Logout') . ' (' . Yii::$app->user->identity->username . ')',
 			'url' => ['/site/logout'],
 			'linkOptions' => ['data-method' => 'post']]
 		);

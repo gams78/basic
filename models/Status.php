@@ -13,13 +13,8 @@ use Yii;
  * @property integer $created_at
  * @property integer $updated_at
  */
- 
- 
 class Status extends \yii\db\ActiveRecord
 {
-	const PERMISSIONS_PRIVATE = 10;
-	const PERMISSIONS_PUBLIC = 20;  
-	 
     /**
      * @inheritdoc
      */
@@ -46,23 +41,11 @@ class Status extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'message' => 'Message',
-            'permissions' => 'Permissions',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'id' => Yii::t('app', 'ID'),
+            'message' => Yii::t('app', 'Message'),
+            'permissions' => Yii::t('app', 'Permissions'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
-    }
-	
-	public function getPermissions() {
-      return array (self::PERMISSIONS_PRIVATE=>'Private',self::PERMISSIONS_PUBLIC=>'Public');
-    }
-     
-    public function getPermissionsLabel($permissions) {
-      if ($permissions==self::PERMISSIONS_PUBLIC) {
-        return 'Public';
-      } else {
-        return 'Private';        
-      }
     }
 }
