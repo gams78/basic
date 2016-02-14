@@ -92,8 +92,8 @@ class StatusController extends Controller
         $model = new Status();
  
         if ($model->load(Yii::$app->request->post())) {
-          $model->created_at = time();
-          $model->updated_at = time();
+//          $model->created_at = time(); <- to dela zdaj timestamp behavior
+//          $model->updated_at = time();
 //		  $model->created_by = Yii::$app->user->getId(); <- to dela zdaj bleameble behavior
            if ($model->save()) {             
 //             return $this->redirect(['view', 'id' => $model->id]);             
