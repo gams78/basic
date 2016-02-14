@@ -18,6 +18,9 @@ $config = [
             ],
 			'admins' => ['gams']
 		],
+        'redactor' => [
+            'class' => 'yii\redactor\RedactorModule',
+        ],
 	],
     'components' => [
         'request' => [
@@ -31,11 +34,9 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-//            'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-//            'useFileTransport' => true,
 			'class' => 'yii\swiftmailer\Mailer',
 			'viewPath' => '@app/mailer',
 			'useFileTransport' => false,
