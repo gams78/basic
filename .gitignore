@@ -22,6 +22,10 @@ composer.phar
 # Mac DS_Store Files
 .DS_Store
 
+# upoloads folder
+web/uploads/*
+!web/uploads/.gitignore
+
 # phpunit itself is not needed
 phpunit.phar
 # local phpunit config

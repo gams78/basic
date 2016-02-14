@@ -52,6 +52,23 @@ class StatusController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+	
+    /**
+     * Displays a single Status model.
+     * @param string $slug
+     * @return mixed
+     */
+    public function actionSlug($slug)
+    {
+      $model = Status::find()->where(['slug'=>$slug])->one();
+      if (!is_null($model)) {
+          return $this->render('view', [
+              'model' => $model,
+          ]);      
+      } else {
+        return $this->redirect('/status/index');
+      }
+	}
 
     /**
      * Displays a single Status model.

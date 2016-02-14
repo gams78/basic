@@ -60,9 +60,19 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
 		'urlManager' => [
-          'showScriptName' => false,
-          'enablePrettyUrl' => true
-        ],   
+			'showScriptName' => false,
+			'enablePrettyUrl' => true,
+			'rules' => [
+				'status' => 'status/index',
+				'status/index' => 'status/index',
+				'status/create' => 'status/create',
+				'status/view/<id:\d+>' => 'status/view',  
+				'status/update/<id:\d+>' => 'status/update',  
+				'status/delete/<id:\d+>' => 'status/delete',  
+				'status/<slug>' => 'status/slug',
+				'defaultRoute' => '/site/index',
+			],
+        ],  
     ],
     'params' => $params,
 ];
