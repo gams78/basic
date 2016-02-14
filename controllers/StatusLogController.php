@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Status;
-use app\models\StatusSearch;
+use app\models\StatusLog;
+use app\models\StatusLogSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * StatusController implements the CRUD actions for Status model.
+ * StatusLogController implements the CRUD actions for StatusLog model.
  */
-class StatusController extends Controller
+class StatusLogController extends Controller
 {
     public function behaviors()
     {
@@ -23,28 +23,16 @@ class StatusController extends Controller
                     'delete' => ['post'],
                 ],
             ],
-            'access' => [
-                        'class' => \yii\filters\AccessControl::className(),
-                        'only' => ['index','create','update','view'],
-                        'rules' => [
-                            // allow authenticated users
-                            [
-                                'allow' => true,
-                                'roles' => ['@'],
-                            ],
-                            // everything else is denied
-                        ],
-                    ],            
         ];
     }
 
     /**
-     * Lists all Status models.
+     * Lists all StatusLog models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new StatusSearch();
+        $searchModel = new StatusLogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -52,26 +40,9 @@ class StatusController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-	
-    /**
-     * Displays a single Status model.
-     * @param string $slug
-     * @return mixed
-     */
-    public function actionSlug($slug)
-    {
-      $model = Status::find()->where(['slug'=>$slug])->one();
-      if (!is_null($model)) {
-          return $this->render('view', [
-              'model' => $model,
-          ]);      
-      } else {
-        return $this->redirect('/status/index');
-      }
-	}
 
     /**
-     * Displays a single Status model.
+     * Displays a single StatusLog model.
      * @param integer $id
      * @return mixed
      */
@@ -83,30 +54,25 @@ class StatusController extends Controller
     }
 
     /**
-     * Creates a new Status model.
+     * Creates a new StatusLog model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-	public function actionCreate()
+    public function actionCreate()
     {
-        $model = new Status();
- 
-        if ($model->load(Yii::$app->request->post())) {
-          $model->created_at = time();
-          $model->updated_at = time();
-//		  $model->created_by = Yii::$app->user->getId(); <- to dela zdaj bleameble behavior
-           if ($model->save()) {             
-//             return $this->redirect(['view', 'id' => $model->id]);             
-			return $this->redirect(['index']);
-           } 
-        } 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        $model = new StatusLog();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
     }
-	
+
     /**
-     * Updates an existing Status model.
+     * Updates an existing StatusLog model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -125,7 +91,7 @@ class StatusController extends Controller
     }
 
     /**
-     * Deletes an existing Status model.
+     * Deletes an existing StatusLog model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -138,15 +104,15 @@ class StatusController extends Controller
     }
 
     /**
-     * Finds the Status model based on its primary key value.
+     * Finds the StatusLog model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Status the loaded model
+     * @return StatusLog the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Status::findOne($id)) !== null) {
+        if (($model = StatusLog::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

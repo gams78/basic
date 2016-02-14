@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\behaviors\SluggableBehavior;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "status".
@@ -33,6 +34,11 @@ class Status extends \yii\db\ActiveRecord
 				'immutable' => true,
 				'ensureUnique'=>true,
             ],
+			[
+			  'class' => BlameableBehavior::className(),
+			  'createdByAttribute' => 'created_by',
+			  'updatedByAttribute' => 'updated_by',
+			],
         ];
     }
 	
@@ -50,7 +56,7 @@ class Status extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['message', 'created_at', 'updated_at', 'created_by'], 'required'],
+            [['message', 'created_at', 'updated_at'], 'required'],
             [['message'], 'string'],
             [['permissions', 'created_at', 'updated_at', 'created_by'], 'integer']
         ];
@@ -90,4 +96,18 @@ class Status extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
+	
+	public function afterSave($insert,$changedAttributes)
+	{
+		parent::afterSave($insert,$changedAttributes);
+		// when insert false, then record has been updated
+		if (!$insert) {
+		  // add StatusLog entry
+		  $status_log = new StatusLog;
+		  $status_log->status_id = $this->id;
+		  $status_log->updated_by = $this->updated_by;
+		  $status_log->created_at = time();
+		  $status_log->save();
+		} 
+	}
 }
