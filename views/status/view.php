@@ -30,6 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'message:ntext',
+//			'created_by',
+			'createdBy.username',
             'permissions',
             'created_at',
             'updated_at',

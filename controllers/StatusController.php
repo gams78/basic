@@ -23,6 +23,18 @@ class StatusController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+            'access' => [
+                        'class' => \yii\filters\AccessControl::className(),
+                        'only' => ['index','create','update','view'],
+                        'rules' => [
+                            // allow authenticated users
+                            [
+                                'allow' => true,
+                                'roles' => ['@'],
+                            ],
+                            // everything else is denied
+                        ],
+                    ],            
         ];
     }
 
@@ -58,19 +70,24 @@ class StatusController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+	public function actionCreate()
     {
         $model = new Status();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+ 
+        if ($model->load(Yii::$app->request->post())) {
+          $model->created_at = time();
+          $model->updated_at = time();
+		  $model->created_by = Yii::$app->user->getId();
+           if ($model->save()) {             
+//             return $this->redirect(['view', 'id' => $model->id]);             
+			return $this->redirect(['index']);
+           } 
+        } 
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
-
+	
     /**
      * Updates an existing Status model.
      * If update is successful, the browser will be redirected to the 'view' page.

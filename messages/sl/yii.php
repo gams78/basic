@@ -25,7 +25,7 @@ return [
     'File upload failed.' => '',
     'Home' => 'Domov',
     'Invalid data received for parameter "{param}".' => '',
-    'Login Required' => '',
+    'Login Required' => 'Potrebna je prijava.',
     'Missing required arguments: {params}' => '',
     'Missing required parameters: {params}' => '',
     'No' => 'Ne',

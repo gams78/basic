@@ -13,7 +13,10 @@ $config = [
 			'enableUnconfirmedLogin' => true,
 			'confirmWithin' => 21600,
 			'cost' => 12,
-			'admins' => ['admin']
+            'modelMap' => [
+                    'User' => 'app\models\User',
+            ],
+			'admins' => ['gams']
 		],
 	],
     'components' => [
@@ -24,15 +27,6 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-/*        'user' => [
-//            'identityClass' => 'app\models\User',
-//            'enableAutoLogin' => true,
-			'class' => 'dektrium\user\Module',
-			'enableUnconfirmedLogin' => true,
-			'confirmWithin' => 21600,
-			'cost' => 12,
-			'admins' => ['admin']
-        ],*/
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -50,8 +44,8 @@ $config = [
 				'host' => 'smtp.gmail.com',
 				'username' => 'bind@triing.si',
 				'password' => 'P0veziMe!',
-				'port' => '587',
-				'encryption' => 'tls',
+				'port' => '465',
+				'encryption' => 'ssl',
             ],
         ],
         'log' => [

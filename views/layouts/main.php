@@ -41,11 +41,14 @@ AppAsset::register($this);
 		['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact']]
 	  ];
 	  if (Yii::$app->user->isGuest) {
-		array_push($navItems,['label' => Yii::t('user', 'Sign In'), 'url' => ['/user/login']],['label' => Yii::t('user', 'Sign Up'), 'url' => ['/user/register']]);
+		array_push($navItems,
+			['label' => Yii::t('user', 'Sign In'), 'url' => ['/user/login']],
+			['label' => Yii::t('user', 'Sign Up'), 'url' => ['/user/register']]
+		);
 	  } else {
-		array_push($navItems,['label' => Yii::t('user', 'Logout') . ' (' . Yii::$app->user->identity->username . ')',
-			'url' => ['/site/logout'],
-			'linkOptions' => ['data-method' => 'post']]
+		array_push($navItems,	
+			['label' => Yii::$app->user->identity->username, 'url' => ['/user/settings/account'], 'linkOptions' => ['data-method' => 'post']],
+			['label' => Yii::t('user', 'Logout'), 'url' => ['/user/logout'], 'linkOptions' => ['data-method' => 'post']]
 		);
 	  }
 	echo Nav::widget([
